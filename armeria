@@ -1,0 +1,54 @@
+create schema armeria;
+use armeria;
+
+create table proovedor(
+ id_proovedor int(6),
+ nombre varchar(70),
+ dni int(20),
+ direccion varchar(70),
+ celular varchar (30),
+ primary key(id_proovedor)
+);
+
+create table producto(  
+ id_producto int(6),
+ id_proovedor int(6),
+ tipo varchar(70),
+ nombre varchar(70),
+ fecha_ingreso datetime,
+ precio dec(8,3),
+ primary key(id_producto),
+ foreign key (id_proovedor) references proovedor(id_proovedor)
+);
+
+create table stock(  
+id_stock int (6),
+id_producto int (6), 
+nombre varchar (70),
+tipo varchar (70),
+cantidad int (70),
+precio dec (8,2), 
+primary key (id_stock),
+foreign key (id_producto) references producto(id_producto)
+);
+
+create table cliente(
+id_cliente int (6),
+nombre_cliente varchar(30),
+apellido_cliente varchar(30),
+telefono varchar(20),
+dni int(20),
+primary key (id_cliente)
+);
+
+create table venta(
+id_venta int(6),
+id_cliente int(6),
+id_producto int(6),
+fecha_venta datetime,
+descuento dec(8,3),
+monto_final dec (10,2),
+primary key(id_venta),
+foreign key(id_producto) references stock(id_producto),
+foreign key(id_cliente) references cliente(id_cliente)
+);
